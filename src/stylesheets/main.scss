@@ -44,6 +44,29 @@ $sides: (
 	r: right,
 );
 
+$body-max-width: 1024px;
+
+
+/* latin */
+@font-face {
+  font-family: 'Assistant';
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+  src: local('Assistant'), local('Assistant-Regular'), url(fonts/Assistant-400.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: 'Sumana';
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+  src: local('Sumana'), local('Sumana-Regular'), url(fonts/Sumana-400.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
 
 .f-serif {
 	font-family: $font-fam-serif;
@@ -150,6 +173,40 @@ $sides: (
 		}
 	}
 }
+.m-h-a {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+.d-block {
+	display: block;
+}
+.d-inlineblock {
+	display: inline-block;
+}
+.d-flex {
+	display: flex;
+}
+.hide {
+	display: none;
+}
+@each $breakpointName, $breakpoint in $breakpoints {
+	@media (min-width: #{$breakpoint}) {
+		.d-block--#{$breakpointName} {
+			display: block;
+		}
+		.d-inlineblock--#{$breakpointName} {
+			display: inline-block;
+		}
+		.d-flex--#{$breakpointName} {
+			display: flex;
+		}
+		.hide--#{$breakpointName} {
+			display: none;
+		}
+	}
+}
 
 .t-left {
 	text-align: left;
@@ -175,11 +232,14 @@ body {
 	color: color(gray3);
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1.5em;
 	margin: 0;
 	font-weight: 400;
 }
-
+p {
+	margin: 0;
+}
 
 .line {
 	border-top: 1px solid color(gray2);
@@ -192,13 +252,18 @@ h2 {
 	@extend .f-sm;
 }
 
+ul {
+	list-style: none;
+    padding-left: 0;
+}
+
 li {
 	list-style-type: none;
 	margin: 0;
 }
 
 a {
-	outline:  none;
+	outline: none;
 	color: inherit;
 }
 
@@ -209,5 +274,50 @@ a:hover {
 .container-about {
 	display: flex;
 	flex-direction: column;
-	justify-content: center; 
+	justify-content: center;
+	max-width: $body-max-width;
+}
+
+.container-about__item {
+	max-width: 360px;
+	align-self: center;
+}
+
+@media (min-width: map-get($breakpoints, desktop)) {
+	.container-about {
+		flex-direction: row;
+		align-items: baseline;
+	}
+	.container-about__item {
+		flex-basis: 33%;
+		align-self: initial;
+	}
+}
+
+.headerContainer {
+	max-width: 315px;
+}
+
+.careerDetails {
+	flex-direction: column;
+	max-width: 960px;
+}
+.careerDetails__line {
+	max-width: 960px;
+}
+
+@media (min-width: map-get($breakpoints, desktop)) {
+	.careerDetails {
+		flex-direction: row;
+		text-align: left;
+	}
+
+	.careerDetails__noteworthy {
+		order: 2;
+		flex-basis: 66%;
+	}
+	.careerDetails__awards {
+		order: 1;
+		flex-basis: 33%;
+	}
 }

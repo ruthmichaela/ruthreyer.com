@@ -7,7 +7,7 @@
 # $(@D) = DIRECTORY OF THE OUTPUT
 
 .PHONY: all
-all: build/main.css build/index.html build/img/sacred.png build/img/bfly.png build/img/eye.png build/img/dev.svg build/img/dribbble.svg build/img/twitter.svg build/img/unsplash.svg build/img/github.svg
+all: build/main.css build/index.html build/favicon.ico build/img build/fonts
 
 build/main.css: src/stylesheets/main.scss
 	mkdir -p $(@D)
@@ -17,36 +17,18 @@ build/index.html: src/index.html
 	mkdir -p $(@D)
 	cp $< $@
 
-build/img/sacred.png: src/img/sacred.png
+build/favicon.ico: src/favicon.ico
 	mkdir -p $(@D)
-	cp $^ $@
+	cp $< $@
 
-build/img/bfly.png: src/img/bfly.png
-	mkdir -p $(@D)
-	cp $^ $@
+build/img: $(shell find src/img -type f)
+	mkdir -p $@
+	cp -rf src/img build
 
-build/img/eye.png: src/img/eye.png
-	mkdir -p $(@D)
-	cp $^ $@
+build/fonts: $(shell find src/fonts -type f)
+	mkdir -p $@
+	cp -rf src/fonts build
 
-build/img/dev.svg: src/img/dev.svg
-	mkdir -p $(@D)
-	cp $^ $@
-
-build/img/dribbble.svg: src/img/dribbble.svg
-	mkdir -p $(@D)
-	cp $^ $@
-
-build/img/twitter.svg: src/img/twitter.svg
-	mkdir -p $(@D)
-	cp $^ $@
-
-build/img/unsplash.svg: src/img/unsplash.svg
-	mkdir -p $(@D)
-	cp $^ $@
-
-build/img/github.svg: src/img/github.svg
-	mkdir -p $(@D)
-	cp $^ $@
-
-
+.PHONY: deploy
+deploy: all
+	scp -r build/* rreyer_ruthreyer@ssh.phx.nearlyfreespeech.net:/home/public
