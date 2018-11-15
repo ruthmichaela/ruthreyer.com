@@ -1,0 +1,213 @@
+*{
+	box-sizing: border-box;
+}
+
+$font-fam-serif: 'Sumana', serif;
+$font-fam-sans: 'Assistant', sans-serif;
+
+$font-size-xs: 13px;
+$font-size-sm: 14px;
+$font-size-md: 18px;
+$font-size-lg: 24px;
+
+// COLORS
+$colors:(
+	gray1: #F4F4F4,
+	gray2: #DFDFDF,
+	gray3: #A2A2A2,
+	gray4: #747474,
+);
+
+@function color($name){
+	@return map-get($colors, $name);
+}
+
+//RESPONSIVE
+$breakpoints: (
+	tablet: 425px + 1px,
+	desktop: 768px + 1px,
+);
+
+// lAYOUT
+$sizes: (
+	xs: 5px,
+	sm: 20px,
+	md: 30px,
+	lg: 60px,
+	xl: 200px,
+);
+
+$sides: (
+	t: top,
+	b: bottom,
+	l: left,
+	r: right,
+);
+
+
+.f-serif {
+	font-family: $font-fam-serif;
+}
+
+.f-sans {
+	font-family: $font-fam-sans;
+}
+
+
+.f-sm {
+	font-size: $font-size-sm;
+}
+
+.f-xs {
+	font-size: $font-size-xs;
+}
+
+.f-md {
+	font-size: $font-size-md;
+}
+
+.f-lg {
+	font-size: $font-size-lg;
+}
+
+
+//loop overmap to get colors.
+@each $key, $value in $colors {
+	.#{$key} {
+		color: $value;
+	}
+	.bg-#{$key} {
+		background-color: $value;
+	}
+}
+
+//loop over map to get padding and margin sizes.
+@each $key, $value in $sizes {
+	.m-#{$key}{
+		margin: $value;
+	}
+	.p-#{$key}{
+		padding: $value;
+	}
+	.m-v-#{$key}{
+		margin-top: $value;
+		margin-bottom: $value;
+	}
+	.m-h-#{$key}{
+		margin-right: $value;
+		margin-left: $value;
+	}
+	.p-v-#{$key}{
+		padding-top: $value;
+		padding-bottom: $value;
+	}
+	.p-h-#{$key}{
+		padding-right: $value;
+		padding-left: $value;
+	}
+	@each $sideName, $side in $sides{
+		.m-#{$sideName}-#{$key}{
+			margin-#{$side}: $value !important;
+		}
+		.p-#{$sideName}-#{$key}{
+			padding-#{$side}: $value !important;
+		}
+	}
+
+	@each $breakpointName, $breakpoint in $breakpoints{
+		@media (min-width: #{$breakpoint}) {
+
+			.m-#{$key}--#{$breakpointName}{
+				margin: $value;
+			}
+			.p-#{$key}--#{$breakpointName}{
+				padding: $value;
+			}
+			.m-v-#{$key}--#{$breakpointName}{
+				margin-top: $value;
+				margin-bottom: $value;
+			}
+			.m-h-#{$key}--#{$breakpointName}{
+				margin-right: $value;
+				margin-left: $value;
+			}
+			.p-v-#{$key}--#{$breakpointName}{
+				padding-top: $value;
+				padding-bottom: $value;
+			}
+			.p-h-#{$key}--#{$breakpointName}{
+				padding-right: $value;
+				padding-left: $value;
+			}
+			@each $sideName, $side in $sides{
+				.m-#{$sideName}-#{$key}--#{$breakpointName}{
+					margin-#{$side}: $value;
+				}
+				.p-#{$sideName}-#{$key}--#{$breakpointName}{
+					padding-#{$side}: $value;
+				}
+			}
+		}
+	}
+}
+
+.t-left {
+	text-align: left;
+}
+
+.t-center {
+	text-align: center;
+}
+
+.t-trk {
+	letter-spacing: 1.25px;
+}
+
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: $font-fam-sans;
+	font-size: $font-size-sm;
+	color: color(gray3);
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	margin: 0;
+	font-weight: 400;
+}
+
+
+.line {
+	border-top: 1px solid color(gray2);
+}
+
+h2 {
+	@extend .f-serif;
+	@extend .t-trk;
+	@extend .gray4;
+	@extend .f-sm;
+}
+
+li {
+	list-style-type: none;
+	margin: 0;
+}
+
+a {
+	outline:  none;
+	color: inherit;
+}
+
+a:hover {
+	opacity: 0.8;
+}
+
+.container-about {
+	display: flex;
+	flex-direction: column;
+	justify-content: center; 
+}
