@@ -14,8 +14,9 @@ $font-size-lg: 24px;
 $colors:(
 	gray1: #F4F4F4,
 	gray2: #DFDFDF,
-	gray3: #A2A2A2,
+	gray3: #808080,
 	gray4: #747474,
+	white: #FFFFFF,
 );
 
 @function color($name){
